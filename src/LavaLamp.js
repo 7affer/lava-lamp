@@ -5,7 +5,7 @@ const getRandomizedPath = ({
   start = { x: 0, y: 0 },
   num = 10,
   step = 10,
-  spread = 4
+  spread = 2
 }) => {
   const calcSpreadX = (x, i) =>
     x + (-1) ** i * (Math.random() * spread + spread);
@@ -43,26 +43,26 @@ const containerStyles = css`
         rgba(0, 0, 0, 0) 60%
       );
 
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
   }
 `;
 
 const dashAnimation = (speed, delay, step, num) => css`
-  stroke-dasharray: 10 ${step * num - 10};
+  stroke-dasharray: 13 ${step * num * 1000};
   animation: ${keyframes`
-  0% { stroke-dashoffset: 10; }
-  100% { stroke-dashoffset: ${step * num - 10}; }
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: ${-(step * num) * 0.5}; }
 `} ${speed}s ease-in-out;
   animation-direction: alternate;
   animation-iteration-count: infinite;
   animation-delay: -${delay * 100}s;
 `;
 
-export const LampContainer = () => {
+export const LavaLamp = () => {
   const paths = [...new Array(5)].map((_, i) => {
-    const step = 10;
-    const num = 10;
+    const step = 50;
+    const num = 4;
     return {
       key: i,
       strokeNum: (-1) ** i > 0 ? 1 : 2,
@@ -73,17 +73,17 @@ export const LampContainer = () => {
         num
       ),
       pathString: getRandomizedPath({
-        spread: Math.random() + 1.5,
+        spread: Math.random() + 2,
         step,
         num
       }),
-      width: Math.random() * 15 + 10
+      width: Math.random() * 20 + 10
     };
   });
 
   return (
     <div className={containerStyles}>
-      <svg viewBox="0 0 100 100">
+      <svg viewBox="0 0 100 150">
         <defs>
           <filter id="goo">
             <feGaussianBlur
@@ -119,7 +119,7 @@ export const LampContainer = () => {
               key={key}
               d={pathString}
               stroke={`url(#linear${strokeNum})`}
-              transform={`translate(${50 + Math.random() * 10 - 5} 0)`}
+              transform={`translate(${50 + Math.random() * 10 - 5} 20)`}
               className={className}
               strokeWidth={width}
             />

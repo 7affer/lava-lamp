@@ -1,11 +1,11 @@
 import React from "react";
 import "./styles.css";
-import { LampContainer } from "./LampContainer";
+import { LavaLamp } from "./LavaLamp";
 
 export default function App() {
   return (
     <div className="App">
-      <LampContainer />
+      <LavaLamp />
     </div>
   );
 }
