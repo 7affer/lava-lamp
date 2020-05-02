@@ -60,9 +60,9 @@ const dashAnimation = (speed, delay, step, num) => css`
 `;
 
 export const LavaLamp = () => {
-  const paths = [...new Array(5)].map((_, i) => {
-    const step = 50;
-    const num = 4;
+  const paths = [...new Array(4)].map((_, i) => {
+    const step = 40;
+    const num = 5;
     return {
       key: i,
       strokeNum: (-1) ** i > 0 ? 1 : 2,
@@ -73,7 +73,7 @@ export const LavaLamp = () => {
         num
       ),
       pathString: getRandomizedPath({
-        spread: Math.random() + 2,
+        spread: (-1) ** i * Math.random() * 10 + 2,
         step,
         num
       }),
